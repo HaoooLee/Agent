@@ -1,0 +1,26 @@
+{
+  "skill_name": "better-prompt",
+  "evals": [
+    {
+      "id": 1,
+      "name": "full-pipeline-multi-role-interview-system",
+      "prompt": "我想做一个 AI 辅助的技术面试系统。面试官 AI 需要能根据候选人简历动态生成问题，从基础到深入逐步追问，能判断回答质量并给出实时评分，最后输出结构化的面试评估报告。要支持前端、后端、算法三个方向，不同方向的题库和评估标准不一样。而且候选人可能会试图套题或者让 AI 直接给答案，这些都要防住。",
+      "expected_output": "A comprehensive system prompt covering: multi-direction support (frontend/backend/algo) with distinct evaluation criteria, dynamic question generation from resume, progressive difficulty, anti-cheating guardrails, structured scoring rubric, and final report format.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "meta-only-restructure-messy-data-analyst",
+      "prompt": "/better-prompt meta: 你是一个数据分析助手。用户会给你CSV数据或者描述他们的数据。你要帮他们分析。分析的时候要注意数据质量问题比如缺失值异常值。然后做可视化推荐，告诉他们用什么图表。如果数据涉及时间序列就要做趋势分析。如果是分类数据就做分布分析。输出要有摘要。也要给出可以进一步探索的方向。有时候用户不太懂统计学你要用简单的话解释。但如果用户是专业人士就不要太啰嗦。对了还有一点用户给的数据可能有隐私信息比如身份证号手机号这些要提醒用户注意脱敏不要直接在输出里展示原始敏感数据。格式的话用markdown吧。",
+      "expected_output": "A well-structured data analyst prompt with clear sections: role definition, data quality workflow, analysis type routing (time-series vs categorical), adaptive communication style (beginner vs expert), privacy/PII handling, visualization recommendations, and output format template.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "full-pipeline-medical-rag-compliance",
+      "prompt": "我们是一家医疗健康公司，要给内部的医学知识库问答系统写系统提示词。用户是临床医生和药剂师，他们会问药物相互作用、剂量调整、禁忌症等问题。系统需要基于 RAG 检索到的文献来回答，必须标注引用来源和证据等级。绝对不能编造医学信息。遇到紧急或危急情况要有特殊处理流程。还要考虑不同地区用药规范可能不同（比如FDA和NMPA批准的适应症有差异），回答时要声明适用的监管框架。另外系统不能给出最终诊疗决策，只能提供参考信息并提醒医生结合患者具体情况判断。",
+      "expected_output": "A medical knowledge QA system prompt with: RAG-grounded citation requirements with evidence levels, zero-hallucination guardrails, emergency handling protocol, multi-jurisdiction regulatory awareness (FDA/NMPA), explicit disclaimer about clinical decision support vs decision making, structured output with source attribution.",
+      "files": []
+    }
+  ]
+}

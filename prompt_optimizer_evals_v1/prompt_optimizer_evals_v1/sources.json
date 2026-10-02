@@ -1,0 +1,365 @@
+{
+  "suite_name": "prompt-optimizer-v1",
+  "retrieved_at": "2026-10-02",
+  "selection": {
+    "repo_seed": 3,
+    "bpo": 5,
+    "ifeval": 4,
+    "synthetic_edge": 8
+  },
+  "references": [
+    {
+      "name": "Prompt Optimizer structured compare",
+      "url": "https://github.com/linshenkx/prompt-optimizer/blob/develop/packages/core/src/services/template/default-templates/evaluation-structured-compare/content.ts",
+      "file_blob_sha": "76282395a2c1c6614e260a8d6680fa230c39f7cc",
+      "borrowed": "成对判断、具体证据、硬边界违例、过拟合风险；本包未复制其代码。"
+    },
+    {
+      "name": "MLflow MetaPromptOptimizer",
+      "url": "https://mlflow.org/docs/latest/api_reference/_modules/mlflow/genai/optimize/optimizers/metaprompt_optimizer.html",
+      "borrowed": "输入、实际输出、预期行为、失败理由；开发集与独立测试集区分。"
+    }
+  ],
+  "repository_licenses": [
+    {
+      "repository": "thu-coai/BPO",
+      "license": "Apache-2.0",
+      "url": "https://github.com/thu-coai/BPO/blob/main/LICENSE"
+    },
+    {
+      "repository": "google-research/google-research",
+      "license": "Apache-2.0",
+      "url": "https://github.com/google-research/google-research/blob/master/LICENSE"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "E01",
+      "origin": "repo_seed",
+      "repository": "HaoooLee/Agent",
+      "commit": "bb9ca4dc5589a8fafb35a65a5626a61658bcfb63",
+      "file_blob_sha": "c2a9fc551e794fb33335a548722034ba9abbf579",
+      "url": "https://github.com/HaoooLee/Agent/blob/bb9ca4dc5589a8fafb35a65a5626a61658bcfb63/better-prompt/evals/evals.json",
+      "locator": {
+        "id": 1
+      },
+      "input_fields": [
+        "prompt"
+      ],
+      "transformation": "原始 prompt 原样保留；原 expected_output 未作为标签使用。",
+      "input_sha256": "3413691fb05e19aef2c671cccae5859ac9ecc0e0c1649f0463a3e7124f8a6ee7",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "本套评测人工构造"
+    },
+    {
+      "case_id": "E02",
+      "origin": "repo_seed",
+      "repository": "HaoooLee/Agent",
+      "commit": "bb9ca4dc5589a8fafb35a65a5626a61658bcfb63",
+      "file_blob_sha": "c2a9fc551e794fb33335a548722034ba9abbf579",
+      "url": "https://github.com/HaoooLee/Agent/blob/bb9ca4dc5589a8fafb35a65a5626a61658bcfb63/better-prompt/evals/evals.json",
+      "locator": {
+        "id": 2
+      },
+      "input_fields": [
+        "prompt"
+      ],
+      "transformation": "仅删除 Skill 命令前缀 /better-prompt meta:；正文原样保留；原 expected_output 未作为标签使用。",
+      "input_sha256": "9321cb05e411468ec94b432e7e5de3aaf7c9f51cc7e38d2d7424cedbe3ef0318",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "本套评测人工构造"
+    },
+    {
+      "case_id": "E03",
+      "origin": "repo_seed",
+      "repository": "HaoooLee/Agent",
+      "commit": "bb9ca4dc5589a8fafb35a65a5626a61658bcfb63",
+      "file_blob_sha": "c2a9fc551e794fb33335a548722034ba9abbf579",
+      "url": "https://github.com/HaoooLee/Agent/blob/bb9ca4dc5589a8fafb35a65a5626a61658bcfb63/better-prompt/evals/evals.json",
+      "locator": {
+        "id": 3
+      },
+      "input_fields": [
+        "prompt"
+      ],
+      "transformation": "原始 prompt 原样保留；原 expected_output 未作为标签使用。",
+      "input_sha256": "034a01fdf6bb79045dab616c16e794057efc545310b92bc6e736a4acafe01ffd",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "本套评测人工构造"
+    },
+    {
+      "case_id": "E04",
+      "origin": "bpo_self_instruct",
+      "repository": "thu-coai/BPO",
+      "commit": "9bf541587d1456fda6ffa46001ab545e892f4a2c",
+      "file_blob_sha": "283f13348a5f5110e18fcc8433adeaf4db1d5937",
+      "url": "https://github.com/thu-coai/BPO/blob/9bf541587d1456fda6ffa46001ab545e892f4a2c/data/testset/self_instruct_eval.json",
+      "locator": {
+        "id": "user_oriented_task_0"
+      },
+      "input_fields": [
+        "instruction",
+        "context"
+      ],
+      "transformation": "instruction + 两个换行 + context；两个字段内部原文不变；output 未使用。",
+      "input_sha256": "7b2cc82a6311516d4b036de51559636d334b9bf4f02b18ee0bae7aaa5b3a5d96",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E05",
+      "origin": "bpo_self_instruct",
+      "repository": "thu-coai/BPO",
+      "commit": "9bf541587d1456fda6ffa46001ab545e892f4a2c",
+      "file_blob_sha": "283f13348a5f5110e18fcc8433adeaf4db1d5937",
+      "url": "https://github.com/thu-coai/BPO/blob/9bf541587d1456fda6ffa46001ab545e892f4a2c/data/testset/self_instruct_eval.json",
+      "locator": {
+        "id": "user_oriented_task_6"
+      },
+      "input_fields": [
+        "instruction",
+        "context"
+      ],
+      "transformation": "instruction + 两个换行 + context；两个字段内部原文不变；output 未使用。",
+      "input_sha256": "c109fdfe27814df07a82479cdd2f0a6d0a80d1940517ea9f98bed24851f73bc9",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E06",
+      "origin": "bpo_self_instruct",
+      "repository": "thu-coai/BPO",
+      "commit": "9bf541587d1456fda6ffa46001ab545e892f4a2c",
+      "file_blob_sha": "283f13348a5f5110e18fcc8433adeaf4db1d5937",
+      "url": "https://github.com/thu-coai/BPO/blob/9bf541587d1456fda6ffa46001ab545e892f4a2c/data/testset/self_instruct_eval.json",
+      "locator": {
+        "id": "user_oriented_task_13"
+      },
+      "input_fields": [
+        "instruction",
+        "context"
+      ],
+      "transformation": "instruction + 两个换行 + context；两个字段内部原文不变；output 未使用。",
+      "input_sha256": "2fb461fa076e1ddf115feae78a861f6f6610274e6edf0477dcc6951091d6a0b9",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E07",
+      "origin": "bpo_dolly",
+      "repository": "thu-coai/BPO",
+      "commit": "9bf541587d1456fda6ffa46001ab545e892f4a2c",
+      "file_blob_sha": "79965605c5dccf86f07027c8a1875fd6bcb42027",
+      "url": "https://github.com/thu-coai/BPO/blob/9bf541587d1456fda6ffa46001ab545e892f4a2c/data/testset/dolly_eval.json",
+      "locator": {
+        "idx": 63
+      },
+      "input_fields": [
+        "instruction",
+        "context"
+      ],
+      "transformation": "instruction + 两个换行 + context；两个字段内部原文不变；response 未使用。",
+      "input_sha256": "3a84781b759111d5811fc10f74ba43b573d4b95382bc9a0a66f378d4087ee74f",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E08",
+      "origin": "bpo_dolly",
+      "repository": "thu-coai/BPO",
+      "commit": "9bf541587d1456fda6ffa46001ab545e892f4a2c",
+      "file_blob_sha": "79965605c5dccf86f07027c8a1875fd6bcb42027",
+      "url": "https://github.com/thu-coai/BPO/blob/9bf541587d1456fda6ffa46001ab545e892f4a2c/data/testset/dolly_eval.json",
+      "locator": {
+        "idx": 168
+      },
+      "input_fields": [
+        "instruction",
+        "context"
+      ],
+      "transformation": "instruction + 两个换行 + context；两个字段内部原文不变；response 未使用。",
+      "input_sha256": "02ea199f65487d9b46066f5b4813c93d36ea9453934e8d9ccbcfb966c039e314",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E09",
+      "origin": "ifeval",
+      "repository": "google-research/google-research",
+      "commit": "26d8ccdab6fec61b5c83ad6327ea8bda9e580288",
+      "file_blob_sha": "cbe52f6eecf3986fdac745b4acba4da1408eb146",
+      "url": "https://github.com/google-research/google-research/blob/26d8ccdab6fec61b5c83ad6327ea8bda9e580288/instruction_following_eval/data/input_data.jsonl",
+      "locator": {
+        "key": 102,
+        "instruction_id_list": [
+          "detectable_format:number_bullet_lists"
+        ],
+        "kwargs": [
+          {
+            "num_bullets": 3
+          }
+        ]
+      },
+      "input_fields": [
+        "prompt"
+      ],
+      "transformation": "prompt 字段原样保留；官方 instruction_id_list/kwargs 仅在 sources.json 中溯源；轻量检查不冒充官方 IFEval 分数。",
+      "input_sha256": "0b74d0e1c8d2859a2ab309cbf105b2ab77b7eac4498f759d1cc7fd3ec12d7ea5",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E10",
+      "origin": "ifeval",
+      "repository": "google-research/google-research",
+      "commit": "26d8ccdab6fec61b5c83ad6327ea8bda9e580288",
+      "file_blob_sha": "cbe52f6eecf3986fdac745b4acba4da1408eb146",
+      "url": "https://github.com/google-research/google-research/blob/26d8ccdab6fec61b5c83ad6327ea8bda9e580288/instruction_following_eval/data/input_data.jsonl",
+      "locator": {
+        "key": 1075,
+        "instruction_id_list": [
+          "detectable_format:json_format"
+        ],
+        "kwargs": [
+          {}
+        ]
+      },
+      "input_fields": [
+        "prompt"
+      ],
+      "transformation": "prompt 字段原样保留；官方 instruction_id_list/kwargs 仅在 sources.json 中溯源；轻量检查不冒充官方 IFEval 分数。",
+      "input_sha256": "eaa884fe78cfb86af89d33fdf5effd81bb0646ae6062e5208314a096600f4fe5",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E11",
+      "origin": "ifeval",
+      "repository": "google-research/google-research",
+      "commit": "26d8ccdab6fec61b5c83ad6327ea8bda9e580288",
+      "file_blob_sha": "cbe52f6eecf3986fdac745b4acba4da1408eb146",
+      "url": "https://github.com/google-research/google-research/blob/26d8ccdab6fec61b5c83ad6327ea8bda9e580288/instruction_following_eval/data/input_data.jsonl",
+      "locator": {
+        "key": 1137,
+        "instruction_id_list": [
+          "detectable_format:json_format",
+          "keywords:forbidden_words"
+        ],
+        "kwargs": [
+          {},
+          {
+            "forbidden_words": [
+              "nourriture"
+            ]
+          }
+        ]
+      },
+      "input_fields": [
+        "prompt"
+      ],
+      "transformation": "prompt 字段原样保留；官方 instruction_id_list/kwargs 仅在 sources.json 中溯源；轻量检查不冒充官方 IFEval 分数。",
+      "input_sha256": "3298c07f0c8ece5b06fc380628ebd2a9ae46fa8c5a44e36af48c7fa0c7b242a6",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E12",
+      "origin": "ifeval",
+      "repository": "google-research/google-research",
+      "commit": "26d8ccdab6fec61b5c83ad6327ea8bda9e580288",
+      "file_blob_sha": "cbe52f6eecf3986fdac745b4acba4da1408eb146",
+      "url": "https://github.com/google-research/google-research/blob/26d8ccdab6fec61b5c83ad6327ea8bda9e580288/instruction_following_eval/data/input_data.jsonl",
+      "locator": {
+        "key": 1217,
+        "instruction_id_list": [
+          "length_constraints:number_words"
+        ],
+        "kwargs": [
+          {
+            "relation": "less than",
+            "num_words": 151
+          }
+        ]
+      },
+      "input_fields": [
+        "prompt"
+      ],
+      "transformation": "prompt 字段原样保留；官方 instruction_id_list/kwargs 仅在 sources.json 中溯源；轻量检查不冒充官方 IFEval 分数。",
+      "input_sha256": "6d45c0e10887edf081d9353d4c48025915ffff21ea7470ca6324f07f95d64f10",
+      "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E13",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "863ea667eaa28485dfa114451d1b5301860ef412c6072bb585804bf83118fc43",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E14",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "c4f9ad4c129f805afebf96d339be623ca9df55d7194fa0ca90008ab18d1bd4b5",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E15",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "1201e1f1701ba7a1e4f8004b8d69000e89e10f6c93a0b3259ebde5fc4b1ea019",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E16",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "cc40267f14ee18e8ba0d80b93dec8e52ab8f245b298273cbc3328d46e9c42db5",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E17",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "77b6de73ae7db11ccd779b8b941ee8b4ef123c65d5d3f490d72381f8350bd911",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E18",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "ea3a7750e3076841fc371556683eebb0af60d59a9dc9413fe8515e7edcffe2e3",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "本套评测人工构造"
+    },
+    {
+      "case_id": "E19",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "d97707d41d7698436676fab36a079d9c6bceba2c7eaf2ffeb716ed3cb455110f",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E20",
+      "origin": "synthetic_edge",
+      "author": "本套评测",
+      "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
+      "input_sha256": "feac2789123dce770afa1110de7671f64ae9f807481459670f5fdee8b973930b",
+      "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    }
+  ]
+}
