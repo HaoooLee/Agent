@@ -5,7 +5,8 @@
     "repo_seed": 3,
     "bpo": 5,
     "ifeval": 4,
-    "synthetic_edge": 8
+    "synthetic_edge": 8,
+    "authored_diagnostic": 7
   },
   "references": [
     {
@@ -49,6 +50,7 @@
       "transformation": "原始 prompt 原样保留；原 expected_output 未作为标签使用。",
       "input_sha256": "3413691fb05e19aef2c671cccae5859ac9ecc0e0c1649f0463a3e7124f8a6ee7",
       "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "rubric_revision": "Codex 修订，待人工复核",
       "execution_fixture_authorship": "本套评测人工构造"
     },
     {
@@ -85,6 +87,7 @@
       "transformation": "原始 prompt 原样保留；原 expected_output 未作为标签使用。",
       "input_sha256": "034a01fdf6bb79045dab616c16e794057efc545310b92bc6e736a4acafe01ffd",
       "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "rubric_revision": "Codex 修订，待人工复核",
       "execution_fixture_authorship": "本套评测人工构造"
     },
     {
@@ -142,6 +145,7 @@
       "transformation": "instruction + 两个换行 + context；两个字段内部原文不变；output 未使用。",
       "input_sha256": "2fb461fa076e1ddf115feae78a861f6f6610274e6edf0477dcc6951091d6a0b9",
       "rubric_authorship": "本套评测人工标注；不是社区标准答案",
+      "rubric_revision": "Codex 修订，待人工复核",
       "execution_fixture_authorship": "无额外测试材料"
     },
     {
@@ -359,6 +363,69 @@
       "reason": "针对师兄要求及当前仓库已识别的失败类型构造；非社区原始样本。",
       "input_sha256": "feac2789123dce770afa1110de7671f64ae9f807481459670f5fdee8b973930b",
       "rubric_authorship": "本套评测人工标注",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E21",
+      "origin": "authored_diagnostic",
+      "author": "Codex",
+      "reason": "为诊断开放目标能否获得有根据的建设性增强而新增；已暴露给开发过程，不作为独立隐藏验证集。",
+      "input_sha256": "31da296dfbde2779c4d99afcb77f95e3d7747d142231d45cf300111c980f322c",
+      "rubric_authorship": "Codex 新编诊断标注，待人工复核",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E22",
+      "origin": "authored_diagnostic",
+      "author": "Codex",
+      "reason": "为诊断带权决策标准与未知信息处理而新增；已暴露给开发过程，不作为独立隐藏验证集。",
+      "input_sha256": "f80a1deef0abe1552ac89446837f7dee36dfe4aa0669caaf32ef255840e04f5d",
+      "rubric_authorship": "Codex 新编诊断标注，待人工复核",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E23",
+      "origin": "authored_diagnostic",
+      "author": "Codex",
+      "reason": "为诊断多任务依赖、材料缺失与停止条件而新增；已暴露给开发过程，不作为独立隐藏验证集。",
+      "input_sha256": "c71afb87beac38298572250763e3e74e06fd6acb4fd111aca2e476eda5f105f5",
+      "rubric_authorship": "Codex 新编诊断标注，待人工复核",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E24",
+      "origin": "authored_diagnostic",
+      "author": "Codex",
+      "reason": "为诊断混合材料、标签解析与嵌入式指令边界而新增；已暴露给开发过程，不作为独立隐藏验证集。",
+      "input_sha256": "b769a12f5fe61f5732789d84571a252c118871c17646d63d09a360043377b4ea",
+      "rubric_authorship": "Codex 新编诊断标注，待人工复核",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E25",
+      "origin": "authored_diagnostic",
+      "author": "Codex",
+      "reason": "为诊断显式输出协议变更及严格 JSON 合约而新增；已暴露给开发过程，不作为独立隐藏验证集。",
+      "input_sha256": "70b96047e5b2e348d650d9b8cbc5a093fd30dda5a5597173644838cd34514480",
+      "rubric_authorship": "Codex 新编诊断标注，待人工复核",
+      "execution_fixture_authorship": "无额外测试材料"
+    },
+    {
+      "case_id": "E26",
+      "origin": "authored_diagnostic",
+      "author": "Codex",
+      "reason": "为诊断未来多轮交互与优化器当前轮边界而新增；已暴露给开发过程，不作为独立隐藏验证集。",
+      "input_sha256": "9162a6d109cfd8505c3c3f0c2313573839b2245a286ec646c13e723f0ae95a11",
+      "rubric_authorship": "Codex 新编诊断标注，待人工复核",
+      "execution_fixture_authorship": "Codex 构造，待人工复核"
+    },
+    {
+      "case_id": "E27",
+      "origin": "authored_diagnostic",
+      "author": "Codex",
+      "reason": "为诊断事实补全时的因果不确定性而新增；已暴露给开发过程，不作为独立隐藏验证集。",
+      "input_sha256": "d2a9112ff28ce6f0f13feb2af7d196efea3e7bdf1d97b63c52e110a3869c86ee",
+      "rubric_authorship": "Codex 新编诊断标注，待人工复核",
       "execution_fixture_authorship": "无额外测试材料"
     }
   ]
