@@ -1,0 +1,30 @@
+[
+  {
+    "case_id": "E13",
+    "input": "帮我弄一下"
+  },
+  {
+    "case_id": "E15",
+    "input": "分析下面 CSV 的缺失值和异常值，并告诉我哪些列需要处理。"
+  },
+  {
+    "case_id": "E17",
+    "input": "从提供的文本中提取人名，按首次出现顺序去重。只输出 JSON 数组；没有人名时输出 []。不要补充文本中未出现的名字。\n\n文本：李明联系王芳，王芳又回复李明。"
+  },
+  {
+    "case_id": "E19",
+    "input": "用不超过 30 个汉字详细解释 Transformer，并包含 5 个例子，每个例子至少 20 个汉字。"
+  },
+  {
+    "case_id": "E21",
+    "input": "帮我做一个能让新用户更快理解我们产品的欢迎页方案。"
+  },
+  {
+    "case_id": "E25",
+    "input": "<context>需要比较两个发布方案。已知：方案 A 可以本周发布但回滚流程尚未演练；方案 B 下周发布且已经完成回滚演练。</context>\n<user_prompt>比较两个发布方案，给我发布建议。用 Markdown 输出。</user_prompt>\n<optimization_notes>将输出协议由 Markdown 改为严格 JSON 对象，只允许 decision、reasons、unknowns 三个键。decision 是字符串；reasons 和 unknowns 是字符串数组。不要使用 Markdown 代码围栏，不要输出 JSON 之外的文字。信息不足时在 unknowns 中明确列出，不要编造。</optimization_notes>"
+  },
+  {
+    "case_id": "N01",
+    "input": "帮我设计一份让新同事更快上手代码库的入职指南。"
+  }
+]

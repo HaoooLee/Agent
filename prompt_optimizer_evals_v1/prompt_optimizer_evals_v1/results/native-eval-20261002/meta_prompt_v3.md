@@ -1,21 +1,10 @@
-"""Prompt optimization through the Responses API; requires openai==3.20.0."""
-
-import argparse
-from contextlib import nullcontext
-import math
-import sys
-
-from openai import OpenAI, OpenAIError
-
-
-meta_prompt = """
 # Prompt Optimization
 
 ## Task
 
 Rewrite the user's prompt into clear, specific, consistent instructions that a capable language model can execute reliably. Turn rough but meaningful ideas into actionable requests, and improve existing drafts without losing their useful structure or distinctive intent.
 
-**Success standard.** A good rewrite makes the intended result easier to obtain while remaining recognizable as the user's own request. Preserve what the user wants, make consequential requirements explicit, and add only what prevents a likely execution error or supplies a missing criterion for achieving the stated goal. Match the amount of change to the problems in the input.
+**Success standard.** A good rewrite makes the intended result easier to obtain while remaining recognizable as the user's own request. Preserve what the user wants, make consequential requirements explicit, and add only what prevents a likely execution error. Match the amount of change to the problems in the input.
 
 > Complete the optimization in one pass. Perform the analysis silently and return the resulting prompt.
 
@@ -78,9 +67,7 @@ Determine what the user is asking an executor to do, what result they expect, wh
 
 ## Complete Consequential Gaps
 
-> **Addition test.** Add an instruction only when its absence would probably cause a competent executor to miss the goal, mishandle an input, violate a requirement, return an unusable result, or leave an open-ended result without a useful basis for judging success. Do not fill every possible category of context. Identify the specific execution problem an addition solves, then express the smallest instruction that addresses it.
-
-For plans, designs, and decisions, make missing criteria directly tied to the stated goal explicit. Add a brief way to check whether the result meets those criteria when needed; keep it within the requested deliverable and output format, without inventing measured values or arbitrary targets, or adding a separate report.
+> **Addition test.** Add an instruction only when its absence would probably cause a competent executor to miss the goal, mishandle an input, violate a requirement, or return an unusable result. Do not fill every possible category of context. Identify the specific execution problem an addition solves, then express the smallest instruction that addresses it.
 
 ### Match the gap to its handling
 
@@ -90,8 +77,6 @@ For plans, designs, and decisions, make missing criteria directly tied to the st
 | Unspecified execution convention | Add a low-risk default only when the task needs one. | The default yields to explicit requirements. Do not add arbitrary limits, audiences, deadlines, budgets, versions, or technical stacks. |
 | Unknown user-specific information | Use conditional instructions or clearly identified unknowns. | Show which supplied facts govern the answer and what remains undetermined. |
 | Missing essential source material | Reuse an existing variable, reference, link, path, or input location. Add a slot only when none exists. | Mark the placeholder in the prompt's language. Optional background must not become a mandatory field. |
-
-When missing background affects only specificity, instruct the executor to provide a useful general or conditional result and identify its limits. Reserve required input slots and blocked execution for source material without which the requested task cannot be performed.
 
 Assumptions may concern a provisional approach or interpretation; they must not turn unknown facts into claims about the user. Keep any useful hypothetical scenario separate from the actual case.
 
@@ -196,67 +181,3 @@ When relevant feedback is supplied, relate the execution input, actual output, e
 > Return one complete optimized prompt, ready to use with unavoidable missing input clearly identified. If there is no meaningful task or no justified change, return the original text; for empty input, return empty text.
 
 Include only the prompt. Do not add an optimization label, explanation, change log, evaluation result, alternative version, or closing remark. Do not wrap the entire prompt in a code block; preserve internal code blocks where the content requires them.
-""".strip()
-
-
-def optimize_prompt(
-    prompt: str,
-    *,
-    model: str,
-    client: OpenAI | None = None,
-    timeout: float = 60.0,
-) -> str:
-    """Return one optimized prompt. A supplied backend client is reused, never closed.
-
-    SDK errors propagate to the caller; invalid inputs raise ValueError and
-    incomplete, refused, or empty responses raise RuntimeError.
-    """
-    for name, value in (("prompt", prompt), ("model", model)):
-        if not isinstance(value, str) or not value.strip():
-            raise ValueError(f"{name} must be non-empty text")
-    if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not math.isfinite(timeout) or timeout <= 0:
-        raise ValueError("timeout must be a positive finite number")
-
-    with (OpenAI() if client is None else nullcontext(client)) as active_client:
-        response = active_client.responses.create(
-            model=model,
-            instructions=meta_prompt,
-            input=prompt,
-            timeout=timeout,
-        )
-        if response.status != "completed":
-            raise RuntimeError(f"Response is {response.status}")
-        if any(
-            content.type == "refusal"
-            for item in response.output
-            if item.type == "message"
-            for content in item.content
-        ):
-            raise RuntimeError("Model refused to optimize the prompt")
-        if not isinstance(response.output_text, str) or not response.output_text.strip():
-            raise RuntimeError("Response contains no optimized prompt")
-        return response.output_text
-
-
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Optimize one prompt with the Responses API.")
-    parser.add_argument("prompt", help="The prompt to optimize")
-    parser.add_argument("--model", required=True, help="OpenAI model ID")
-    parser.add_argument("--timeout", type=float, default=60.0, help="Request timeout in seconds")
-    args = parser.parse_args(argv)
-    try:
-        result = optimize_prompt(args.prompt, model=args.model, timeout=args.timeout)
-    except ValueError as error:
-        parser.error(str(error))
-    except OpenAIError as error:
-        print(f"OpenAI request failed ({type(error).__name__})", file=sys.stderr)
-        return 1
-    except RuntimeError as error:
-        print(str(error), file=sys.stderr)
-        return 1
-    print(result)
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

@@ -1,0 +1,54 @@
+{
+  "method": "Single-round anonymous native-model evaluation",
+  "fidelity": {
+    "meta_prompt_v3.md": 27,
+    "better-prompt noninteractive adaptation": 23,
+    "request/meta_prompt.md": 22
+  },
+  "execution_pairs": [
+    {
+      "left": "meta_prompt_v3.md",
+      "right": "better-prompt noninteractive adaptation",
+      "left_wins": 2,
+      "right_wins": 1,
+      "ties": 16,
+      "excluded_fidelity": [
+        "E01",
+        "E03",
+        "E10"
+      ],
+      "review_required": []
+    },
+    {
+      "left": "meta_prompt_v3.md",
+      "right": "request/meta_prompt.md",
+      "left_wins": 0,
+      "right_wins": 2,
+      "ties": 16,
+      "excluded_fidelity": [
+        "E06",
+        "E10",
+        "E14",
+        "E16"
+      ],
+      "review_required": []
+    },
+    {
+      "left": "better-prompt noninteractive adaptation",
+      "right": "request/meta_prompt.md",
+      "left_wins": 0,
+      "right_wins": 2,
+      "ties": 14,
+      "excluded_fidelity": [
+        "E01",
+        "E03",
+        "E06",
+        "E10",
+        "E14",
+        "E16"
+      ],
+      "review_required": []
+    }
+  ],
+  "note": "Pairwise execution preferences include only cases where both rewrites pass fidelity; no holdout or reverse-order conclusion."
+}

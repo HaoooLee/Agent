@@ -1,0 +1,5 @@
+{
+  "cases": 7,
+  "mechanical_failures": {},
+  "note": "Targeted native generation smoke; not full downstream or independent holdout evaluation."
+}
