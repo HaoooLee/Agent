@@ -30,7 +30,7 @@ JSON 检查要求完整裸 JSON，拒绝代码围栏、重复键和非标准常�
 
 better-prompt 原版的默认完整流程包含追问和人工确认。本矩阵的原版默认流程运行到 Lyra 后记录 `interaction_required`，不虚构用户回答或确认；没有最终自动输出时，不参与质量排名。另测明确标记的 `better_prompt_noninteractive`：取消追问、确认和说明输出，保持 Lyra→Meta 两阶段。适配版不等于原版；本矩阵不声称覆盖其全部命令路由。
 
-矩阵评测适配版、`request/meta_prompt.md` 和 `meta_prompt_v3.md`，同时保留原输入基线。四组各执行一次，缓存同一回答供六组成对比较复用，每组以正反两种顺序判定。计划 547 次调用，默认不重试。正反判定复用执行结果，检验裁判顺序偏差；执行采样波动需另跑独立记录。
+矩阵评测适配版、`request/meta_prompt.md` 和 `meta_prompt.md`，同时保留原输入基线。四组各执行一次，缓存同一回答供六组成对比较复用，每组以正反两种顺序判定。计划 547 次调用，默认不重试。正反判定复用执行结果，检验裁判顺序偏差；执行采样波动需另跑独立记录。
 
 在项目根目录 `.env` 或环境中配置 `OPENAI_API_KEY`，可选 `OPENAI_BASE_URL`。`EVAL_MODEL` 指定统一模型，或分别设置 `EVAL_OPTIMIZER_MODEL`、`EVAL_EXECUTOR_MODEL`、`EVAL_JUDGE_MODEL`。`.env` 支持字面量赋值，不执行 shell 表达式，已有环境变量优先；密钥不进入快照。
 
@@ -45,10 +45,10 @@ better-prompt 原版的默认完整流程包含追问和人工确认。本矩阵
 
 `--dry-run` 冻结输入和调用计划，不调用模型；真实运行缺少密钥或模型 ID 时直接报错。已有目录不可覆盖。默认超时 60 秒、输出预算 4096 token、并行 3 个任务，可调整矩阵参数。
 
-单独比较可使用 `run_evals.py generate/execute/compare/summary`。`generate --meta-prompt ../../meta_prompt_v3.md` 评测 v3；`--skill-directory ../../better-prompt` 保留原版交互边界，增加 `--noninteractive` 明确启用适配。
+单独比较可使用 `run_evals.py generate/execute/compare/summary`。`generate --meta-prompt ../../meta_prompt.md` 评测当前主稿；`--skill-directory ../../better-prompt` 保留原版交互边界，增加 `--noninteractive` 明确启用适配。
 
 ## 结果复核
 
 查看全部调用错误、保真失败、执行硬约束失败、待复核项和顺序敏感项。核对证据，并分别报告 dev/test 与建设性增强案例。成本、延迟和质量结论须来自真实模型记录。
 
-离线测试和 dry-run 用于验证评测流程。已保存的单轮原生模型比较与 v4 定向改写记录见 `results/README.md`；独立运行的矩阵结果保存为 `report.json` 和逐条 JSONL。
+离线测试和 dry-run 用于验证评测流程。运行产物保存在本地 `runs/`，包括 `report.json` 和逐条 JSONL，不纳入仓库。

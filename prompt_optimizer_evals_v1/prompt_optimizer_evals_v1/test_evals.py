@@ -508,7 +508,7 @@ class EvaluationTests(unittest.TestCase):
             for relative,content in (
                 ('better-prompt/SKILL.md','skill'),('better-prompt/references/lyra.md','lyra'),
                 ('better-prompt/references/meta.md','meta'),('request/meta_prompt.md','request'),
-                ('meta_prompt_v3.md','v3'),
+                ('meta_prompt.md','current'),
             ):
                 path = project/relative
                 path.parent.mkdir(parents=True,exist_ok=True)
@@ -536,7 +536,7 @@ class EvaluationTests(unittest.TestCase):
             for relative,content in (
                 ('better-prompt/SKILL.md','skill'),('better-prompt/references/lyra.md','lyra'),
                 ('better-prompt/references/meta.md','meta'),('request/meta_prompt.md','request'),
-                ('meta_prompt_v3.md','v3'),
+                ('meta_prompt.md','current'),
             ):
                 path = project/relative
                 path.parent.mkdir(parents=True,exist_ok=True)

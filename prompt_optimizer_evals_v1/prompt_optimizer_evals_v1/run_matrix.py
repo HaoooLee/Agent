@@ -97,17 +97,17 @@ def main():
         'better_prompt_original':['--skill-directory',str(snapshot/'better-prompt')],
         'better_prompt_noninteractive':['--skill-directory',str(snapshot/'better-prompt'),'--noninteractive'],
         'request_meta':['--meta-prompt',str(snapshot/'request_meta_prompt.md')],
-        'v3':['--meta-prompt',str(snapshot/'meta_prompt_v3.md')],
+        'current':['--meta-prompt',str(snapshot/'meta_prompt.md')],
     }
     for relative in ('SKILL.md','references/lyra.md','references/meta.md'):
         target = snapshot/'better-prompt'/relative
         target.parent.mkdir(parents=True,exist_ok=True)
         target.write_bytes((PROJECT/'better-prompt'/relative).read_bytes())
     (snapshot/'request_meta_prompt.md').write_bytes((PROJECT/'request/meta_prompt.md').read_bytes())
-    (snapshot/'meta_prompt_v3.md').write_bytes((PROJECT/'meta_prompt_v3.md').read_bytes())
+    (snapshot/'meta_prompt.md').write_bytes((PROJECT/'meta_prompt.md').read_bytes())
     common = ['--cases',str(snapshot/'evals.json'),'--sources',str(snapshot/'sources.json'),'--split','all','--timeout',str(args.timeout),'--max-retries','0','--max-output-tokens',str(args.max_output_tokens)]
     generations = {name:output/(name+'-generate.jsonl') for name in variants}
-    runnable = ['original','better_prompt_noninteractive','request_meta','v3']
+    runnable = ['original','better_prompt_noninteractive','request_meta','current']
     executions = {name:output/(name+'-execute.jsonl') for name in runnable}
     gen_tasks = [(name,['generate',*common,'--model',models['optimizer'] or '<optimizer-model>','--output',str(generations[name]),*source]) for name,source in variants.items()]
     exec_tasks = [(name,['execute',*common,'--model',models['executor'] or '<executor-model>','--prompts','original' if name=='original' else str(generations[name]),'--output',str(executions[name])]) for name in runnable]

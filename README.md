@@ -1,6 +1,6 @@
 # Prompt Optimizer
 
-通过 OpenAI Responses API 将用户输入优化为可直接使用的提示词。当前交付版本为 v4，保留 v3 用于对照。
+通过 OpenAI Responses API 将用户输入优化为可直接使用的提示词。当前系统提示词统一保存在 `meta_prompt.md`。
 
 ## 后端调用
 
@@ -38,17 +38,15 @@ python run_meta_prompt.py "解释过拟合" --model "你的模型 ID"
 ## 交付内容
 
 - `meta_prompt.md`：当前 v4 系统提示词；`run_meta_prompt.py` 内嵌相同内容，可单文件调用。
-- `meta_prompt_v3.md`、`meta_prompt_v4.md`：版本对照。
 - `better-prompt/`、`request/`：参考 Skill 与原始任务要求。
 - `prompt_optimizer_evals_v1/prompt_optimizer_evals_v1/`：27 条评测、来源、运行脚本和回归测试。
 
 ## 验证与评测
 
 ```bash
-python -m unittest -v test_run_meta_prompt.py
 cd prompt_optimizer_evals_v1/prompt_optimizer_evals_v1
 python run_evals.py validate
 python -m unittest -v test_evals.py
 ```
 
-评测说明见该目录的 `evals.md`；结果见 `results/README.md`。v3 基线采用单轮原生模型匿名评测，v4 完成 7 条定向改写检查。保真通过数不等于下游质量满分，也不代表未见输入上的泛化结论。
+评测说明见该目录的 `evals.md`。运行产物保存到本地 `runs/`，不纳入仓库。
